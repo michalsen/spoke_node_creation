@@ -1,0 +1,38 @@
+<?php
+
+use Drupal\node\Entity\Node;
+
+/* 
+ * Implements hook_ENTITY_TYPE_insert().
+ */
+
+function spoke_node_creation_node_insert(\Drupal\Core\Entity\EntityInterface $entity) {
+    
+    // Check if the inserted entity is of type 'site'.
+    if ($entity->bundle() === 'site') {
+
+        // Get the site ID from the created node.
+        $site_id = $entity->get('field_site_id')->value;
+
+        // Define the pages to be created.
+        $pages = [
+        'Home',
+        'About',
+        'Contact',
+        'Blog',
+        ];
+
+        // Create nodes for each page.
+        foreach ($pages as $page_title) {
+        $node = Node::create([
+            'type' => 'page',
+            'title' => $page_title,
+            'field_site_id' => $site_id, // Assign the site ID to the new nodes.
+            'status' => 1, // Published.
+        ]);
+        $node->save();
+        }
+
+    }
+
+}

@@ -1,0 +1,5 @@
+name: 'Spoke Node Creation'
+type: module
+description: 'Creates default nodes for new site content'
+core_version_requirement: ^10
+package: Spoke
